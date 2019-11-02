@@ -24,5 +24,4 @@ public class GreetingControllerTest extends ApplicationTest {
         Assertions.assertThat(this.restTemplate.getForObject(
                 "http://localhost:" + port + "/greeting", String.class)).contains("Hello, World!");
     }
-
 }
