@@ -1,16 +1,19 @@
 package sample;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class Customer {
+@Table(name="CUSTOMER")
+public class Customer implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name= "last_name", length = 200)
     private String lastName;
+
+    @Column(name= "first_name", length = 200)
     private String firstName;
 
     protected Customer() {};
