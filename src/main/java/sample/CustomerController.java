@@ -2,10 +2,9 @@ package sample;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @RestController
@@ -60,16 +59,14 @@ public class CustomerController {
 
     }
 
-    @GetMapping
-    @RequestMapping("/delete")
-    public JsonView Delete(
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> Delete(
             @RequestParam(value = "id") long id) {
-        long result = _customerRepository.deleteById(id);
-
-        ModelAndView mv = new ModelAndView("jsonView");
-        mv.addObject("result", result);
-
-        return (JsonView) mv;
+        Customer result = _customerRepository.findById(id);
+        if(result != null) {
+            _customerRepository.deleteById(id);
+        }
+        return ResponseEntity.ok(HttpStatus.ACCEPTED);
     }
 
 
